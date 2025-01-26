@@ -39,6 +39,7 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            buttonLimparCampos = new Button();
             SuspendLayout();
             // 
             // label1
@@ -155,6 +156,18 @@
             label5.TabIndex = 10;
             label5.Text = "Fator de potência";
             // 
+            // buttonLimparCampos
+            // 
+            buttonLimparCampos.BackColor = Color.LightBlue;
+            buttonLimparCampos.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonLimparCampos.Location = new Point(290, 351);
+            buttonLimparCampos.Name = "buttonLimparCampos";
+            buttonLimparCampos.Size = new Size(278, 49);
+            buttonLimparCampos.TabIndex = 11;
+            buttonLimparCampos.Text = "LIMPAR";
+            buttonLimparCampos.UseVisualStyleBackColor = false;
+            buttonLimparCampos.Click += buttonLimparCampos_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -162,6 +175,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(642, 455);
+            Controls.Add(buttonLimparCampos);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -194,5 +208,6 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private Button buttonLimparCampos;
     }
 }

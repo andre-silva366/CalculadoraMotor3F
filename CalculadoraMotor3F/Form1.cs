@@ -9,56 +9,32 @@ public partial class Form1 : Form
         string potencia = string.Empty;
         string rendimento = string.Empty;
         string fatorPotencia = string.Empty;
+
     }
 
+    double valor;
+    List<double> valores = [];
     private void buttonCalcular_Click(object sender, EventArgs e)
     {
         try
         {
             //Potência
-            if (string.IsNullOrEmpty(textBoxPotencia.Text))
-            {
-                throw new Exception("Preencha o campo potência corretamente!");
-            }
-            double potencia1;
-            if (!double.TryParse(textBoxPotencia.Text, out potencia1))
-            {
-                throw new Exception("Preencha o campo potência corretamente!");
-            }
+            ValidaDados(textBoxPotencia.Text, "potência");
 
             //Tensão
-            if (string.IsNullOrEmpty(textBoxTensao.Text))
-            {
-                throw new Exception("Preencha o campo tensão corretamente!");
-            }
-            double tensao1;
-            if (!double.TryParse(textBoxTensao.Text, out tensao1))
-            {
-                throw new Exception("Preencha o campo tensão corretamente!");
-            }
+            ValidaDados(textBoxTensao.Text, "tensão");
 
             //Rendimento
-            if (string.IsNullOrEmpty(textBoxRendimento.Text))
-            {
-                throw new Exception("Preencha o campo rendimento corretamente!");
-            }
-            double rendimento1;
-            if (!double.TryParse(textBoxRendimento.Text, out rendimento1))
-            {
-                throw new Exception("Preencha o campo rendimento corretamente!");
-            }
+            ValidaDados(textBoxRendimento.Text, "rendimento");
 
             //Fator de potência
-            if (string.IsNullOrEmpty(textBoxFatorPotencia.Text))
+            ValidaDados(textBoxRendimento.Text, "fator de potência");
+
+            if (valores != null && valores.Count == 4)
             {
-                throw new Exception("Preencha o campo fator de potência corretamente!");
+                Calcular(valores[0], valores[1], valores[2], valores[3]);
             }
-            double fatorPotencia1;
-            if (!double.TryParse(textBoxFatorPotencia.Text, out fatorPotencia1))
-            {
-                throw new Exception("Preencha o campo fator de potência corretamente!");
-            }
-            Calcular(potencia1,tensao1,rendimento1,fatorPotencia1);
+
         }
         catch (Exception ex)
         {
@@ -66,7 +42,7 @@ public partial class Form1 : Form
         }
     }
 
-    private void Calcular(double potencia, double tensao,  double rendimento, double fatorPotencia)
+    private void Calcular(double potencia, double tensao, double rendimento, double fatorPotencia)
     {
         double raiz3 = Math.Sqrt(3);
         try
@@ -78,5 +54,35 @@ public partial class Form1 : Form
         {
             MessageBox.Show("Ocorreu um erro de cálculo", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    private double ValidaDados(string texto, string campo)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(texto))
+            {
+                throw new Exception($"Preencha o campo {campo} corretamente!");
+            }
+            else if (!double.TryParse(texto, out valor))
+            {
+                throw new Exception($"Preencha o campo {campo} corretamente!");
+            }
+            valores.Add(valor);
+            return valor;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"{ex.Message}", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 0;
+        }
+    }
+
+    private void buttonLimparCampos_Click(object sender, EventArgs e)
+    {
+        textBoxPotencia.Text = string.Empty;
+        textBoxTensao.Text = string.Empty;
+        textBoxRendimento.Text = string.Empty;
+        textBoxFatorPotencia.Text= string.Empty;
     }
 }
